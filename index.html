@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
 	<title>The Dash</title>
+	<script src="js/jquery-1.10.2.js"> </script>
+	<script src="js/js.js"></script>
+	<LINK href="css/styles.css" rel="stylesheet">
+
 	<!-- Bootstrap -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -12,23 +16,34 @@
 		<script src="bootstrap/assets/js/html5shiv.js"></script>
     	<script src="bootstrap/assets/js/respond.min.js"></script>
     <![endif]-->
-    <!-- Other -->
-	<script src="js/jquery-1.10.2.js"> </script>
-	<script src="js/js.js"></script>
-	<LINK href="css/styles.css" rel="stylesheet">
 </head>
 <body onload="refresh()">
-	<div class="container-fluid">
+	<div class="container">
 	<div class="page-header">
 			<h1>The Dash <small>Lightweight dashboard for SickBeard</small></h1>
 		<div>
-			<button type="button" class="alignleft btn btn-default btn-lg" onCLick="refresh()">
-				<span class="glyphicon glyphicon-refresh"></span> Refresh
-			</button>
+
 			<div id="aligncenter">
 				Check viewed episodes off by clicking them. Use the play-button to the left of the episode to play it. 
 			</div>
-			<div style="clear: both;"></div>
+			<ul class="nav nav-pills">
+				<li class="active">
+					<button type="button" class="alignleft btn btn-default btn-lg" onClick="refresh()">
+						<span class="glyphicon glyphicon-refresh"></span>
+					</button>
+		  		</li>
+			  <li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      				Services <span class="caret"></span>
+    			</a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					<li role="presentation"><a role="menuitem" tabindex="0" href="http://10.0.0.9:8081">SichBeard</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="1" href="http://10.0.0.9:5050">CouchPotato</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="2" href="http://10.0.0.9:8080">SABnzdb</a></li>
+				</ul>
+			  </li>
+			</ul>
+
 		</div>
 	</div>
 	<div id="aligncenter log"></div>

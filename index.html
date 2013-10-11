@@ -3,21 +3,22 @@
 <head>
 	<title>Esso's SickBeard Portal</title>
 	<script src="http://code.jquery.com/jquery-1.10.2.js"> </script>
-	<script src="js.js"> </script>
+	<script src="js.js"></script>
 	<LINK href="style.css" rel="stylesheet" type="text/css"> 
 </head>
-<body>
+<body onload="getHistory()">
 		<div id="head">
 			<h1>The Dash</h1>
 		</div>
 		<div id="menu">
-			<button onClick="getHistory()"> Get episodes</button>
+			<button onClick="getHistory()">Refresh</button>
 		</div>
 		<div id="log"></div>
 		<hr>
 		<table border="0" bordercolor="#FFFFFF" style="background-color:#FFFFFF" width="100%" cellpadding="3" cellspacing="0">
 			<tr>
 				<td>
+					<
 					<div id="history">
 							<h2>Episodes ready for watching:</h2>
 					</div>

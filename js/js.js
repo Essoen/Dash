@@ -73,3 +73,8 @@ function checkOff(){
 	$(event.target).css('text-decoration', 'line-through');
 	// Some logic for remembering that this episode has been checked.
 }
+
+function findFilePath(episode){
+	var path = ""; 
+	return path; 
+}

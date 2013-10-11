@@ -44,6 +44,7 @@ function getUpcoming(){
 		}
 	})
 }
+
 function reprHist(data){
 	var loc = $("#history")
 	var episodes = data.data; 

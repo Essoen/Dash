@@ -1,6 +1,5 @@
-The Dash (working title)
+The Dash
 ====
-
-A simple single-page application that works as a Dashboard for SickBeard. Developed with jQuery and Boostrap.
+A simple single-page application that works as a dashboard for SickBeard. Powered by jQuery, Boostrap and Glyphicons. In need of a better title.
 
 Made by Esso @essoen.net

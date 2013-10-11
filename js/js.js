@@ -13,7 +13,7 @@ function clearFields(){
 	$("#upcoming").html("");
 }
 
-function getHistory(){ 
+function getHistory(){ // Cotacts SickBeard and gets the 25 latest downladed episodes.
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
@@ -30,7 +30,7 @@ function getHistory(){
 	})
 }
 
-function getUpcoming(){
+function getUpcoming(){ // Cotacts SickBeard and gets the upcoming episodes.
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
@@ -47,17 +47,17 @@ function getUpcoming(){
 	})
 }
 
-function presentHistory(data){
+function presentHistory(data){ // Presents the history-data
 	var loc = $("#history")
 	var episodes = data.data; 
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
 		var btn = '<span class="glyphicon glyphicon-play"></span>  '
-		loc.append( btn + ep.show_name + " - " + ep.season + " x " + ep.episode +"<br>"); 
+		loc.append( btn + "<a onClick='checkOff()' >"+ ep.show_name + " - " + ep.season + " x " + ep.episode +"</a><br>"); 
 	}
 }
 
-function presentUpcoming(data){
+function presentUpcoming(data){ // Presents the upcoming-data
 	var loc = $("#upcoming"); 
 	var eps  = [data.data.today, data.data.soon, data.data.later];
 	for (var time = 0; time < eps.length; time++){
@@ -69,6 +69,7 @@ function presentUpcoming(data){
 	}
 }
 
-function checkOff(){
-
+function checkOff(){ 
+	$(event.target).css('text-decoration', 'line-through');
+	// Some logic for remembering that this episode has been checked.
 }

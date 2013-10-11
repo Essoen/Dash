@@ -19,20 +19,19 @@
 </head>
 <body onload="refresh()">
 	<div class="container-fluid">
-	<div id="aligncenter">
-		<h1>The Dash</h1>
-	</div>
-	<div>
-		<button type="button" class="alignleft btn btn-default btn-lg" onCLick="refresh()">
-			<span class="glyphicon glyphicon-refresh"></span> Refresh
-		</button>
-		<div id="aligncenter">
-			Check viewed episodes off by clicking them. Use the play-button to the left of the episode to play it.
+	<div class="page-header">
+			<h1>The Dash <small>Lightweight dashboard for SickBeard</small></h1>
+		<div>
+			<button type="button" class="alignleft btn btn-default btn-lg" onCLick="refresh()">
+				<span class="glyphicon glyphicon-refresh"></span> Refresh
+			</button>
+			<div id="aligncenter">
+				Check viewed episodes off by clicking them. Use the play-button to the left of the episode to play it. 
+			</div>
+			<div style="clear: both;"></div>
 		</div>
-		<div style="clear: both;"></div>
 	</div>
 	<div id="aligncenter log"></div>
-	<hr>
 		<div class="row">
 			<div id="rows" class="span6">
 				<h2>Downloaded episodes</h2>

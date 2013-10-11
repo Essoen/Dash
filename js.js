@@ -14,7 +14,7 @@ function clearFields(){
 function getHistory(){ 
 	var log = $("#log");
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=25&jsonp=hist",
 		data: String,
 		dataType: "jsonp", 
@@ -22,7 +22,7 @@ function getHistory(){
 			if (data.result == "success"){
 				reprHist(data); 
 			}else{
-				log.append("Something is wrong.");
+				log.append("Something is wrong, we can't get the downloaded episodes.");
 			}
 		}
 	})
@@ -31,7 +31,7 @@ function getHistory(){
 function getUpcoming(){
 	var log = $("#log");
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: host + "/api/" + apiKey + "/api/46abdc48319c66c67962883b06ec7f74/?cmd=future&sort=date&jsonp=up",
 		data: String,
 		dataType: "jsonp", 
@@ -39,7 +39,7 @@ function getUpcoming(){
 			if (data.result == "success"){
 				reprUpcoming(data); 
 			}else{
-				log.append("Something is wrong.");
+				log.append("Something is wrong, we can't get the upcoming episodes.");
 			}
 		}
 	})

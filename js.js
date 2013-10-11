@@ -50,7 +50,7 @@ function reprHist(data){
 	var episodes = data.data; 
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		loc.append(ep.show_name + " - " + ep.season + "x" + ep.episode +"<br>"); 
+		loc.append("<a href='" + ep.resource_path +"'>"+ ep.show_name + " - " + ep.season + " x " + ep.episode +"</a><br>"); 
 	}
 }
 

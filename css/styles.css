@@ -6,6 +6,14 @@
 	bottom: -50px;
 }
 
-#log, #head{
+#aligncenter{
 	text-align: center;
+}
+
+.aligncenter {
+	float: center;
+}
+
+.alignleft {
+	float: left;
 }

@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
 	<title>The Dash</title>
-	<meta name="author" content="Esso">
-
 	<!-- Bootstrap -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
- 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ 	<link href="css/bootstrap.min.css" rel="stylesheet">
  	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
 		<script src="bootstrap/assets/js/html5shiv.js"></script>
@@ -21,15 +19,21 @@
 </head>
 <body onload="refresh()">
 	<div class="container-fluid">
-	<div id="head">
+	<div id="aligncenter">
 		<h1>The Dash</h1>
 	</div>
-	<button type="button" class="btn btn-default btn-lg" onCLick="refresh()">
-	<span class="glyphicon glyphicon-refresh"></span> Refresh
-	</button>
-	<div id="log"></div>
+	<div>
+		<button type="button" class="alignleft btn btn-default btn-lg" onCLick="refresh()">
+			<span class="glyphicon glyphicon-refresh"></span> Refresh
+		</button>
+		<div id="aligncenter">
+			Check viewed episodes off by clicking them. Use the play-button to the left of the episode to play it.
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div id="aligncenter log"></div>
 	<hr>
-		<div class="row-fluid">
+		<div class="row">
 			<div id="rows" class="span6">
 				<h2>Downloaded episodes</h2>
 				<div id="history"> </div>

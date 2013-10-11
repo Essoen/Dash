@@ -52,7 +52,8 @@ function presentHistory(data){
 	var episodes = data.data; 
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		loc.append("<a href='" + ep.resource_path +"'>"+ ep.show_name + " - " + ep.season + " x " + ep.episode +"</a><br>"); 
+		var btn = '<span class="glyphicon glyphicon-play"></span>  '
+		loc.append( btn + ep.show_name + " - " + ep.season + " x " + ep.episode +"<br>"); 
 	}
 }
 
@@ -66,4 +67,8 @@ function presentUpcoming(data){
 			loc.append(ep.show_name+ " - " + ep.airdate + " - " + ep.season + " x " + ep.episode +"<br>"); 
 		}
 	}
+}
+
+function checkOff(){
+
 }

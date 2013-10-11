@@ -63,7 +63,7 @@ function presentUpcoming(data){
 		var episodes = eps[time]; 
 		for (var i = 0; i < episodes.length; i++){
 			var ep = episodes[i];
-			loc.append(ep.show_name+ " - " + ep.airdate + " - " + ep.season + "x" + ep.episode +"<br>"); 
+			loc.append(ep.show_name+ " - " + ep.airdate + " - " + ep.season + " x " + ep.episode +"<br>"); 
 		}
 	}
 }

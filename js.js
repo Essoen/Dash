@@ -22,7 +22,7 @@ function getHistory(){
 		dataType: "jsonp", 
 		success: function(data){
 			if (data.result == "success"){
-				presentHist(data); 
+				presentHistory(data); 
 			} else{
 				log.append("Something is wrong, we can't get the downloaded episodes.");
 			}
@@ -47,7 +47,7 @@ function getUpcoming(){
 	})
 }
 
-function presenttHistory(data){
+function presentHistory(data){
 	var loc = $("#history")
 	var episodes = data.data; 
 	for (var i = 0; i < episodes.length; i++){

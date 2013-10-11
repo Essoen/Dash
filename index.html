@@ -7,12 +7,28 @@
 	<LINK href="style.css" rel="stylesheet" type="text/css"> 
 </head>
 <body>
-	<center>
-		<h1>The Dash</h1>
-		<hr>
-		<button onClick="getNew()"> Refresh</button>
+		<div id="head">
+			<h1>The Dash</h1>
+		</div>
+		<div id="menu">
+			<button onClick="getHistory()"> Get episodes</button>
+		</div>
 		<div id="log"></div>
-	</center>
+		<hr>
+		<table border="0" bordercolor="#FFFFFF" style="background-color:#FFFFFF" width="100%" cellpadding="3" cellspacing="0">
+			<tr>
+				<td>
+					<div id="history">
+							<h2>Episodes ready for watching:</h2>
+					</div>
+				</td>
+				<td>
+					<div id="upcoming">
+						<h2>Upcoming episodes:</h2>
+					</div>
+				</td>
+			</tr>
+		</table>
 </body>
 <div id="footer">
 	<hr>

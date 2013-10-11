@@ -1,0 +1,11 @@
+#footer {
+	text-align: center; 
+	font-size: 10px;
+	color: grey;
+	position:relative;
+	bottom: -50px;
+}
+
+#log, #head{
+	text-align: center;
+}

@@ -25,7 +25,7 @@ function reprHistory(data){
 	var loc = $("#history");
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		loc.append("<br>" + ep.show_name + " - " + ep.season + "x" + ep.episode); 
+		loc.append(ep.show_name + " - " + ep.season + "x" + ep.episode +"<br>"); 
 	}
 }
 

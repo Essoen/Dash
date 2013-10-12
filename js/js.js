@@ -34,7 +34,7 @@ function getUpcoming(){ // Cotacts SickBeard and gets the upcoming episodes.
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
-		url: host + "/api/" + apiKey + "/api/46abdc48319c66c67962883b06ec7f74/?cmd=future&sort=date&jsonp=up",
+		url: host + "/api/" + apiKey + "/?cmd=future&sort=date&jsonp=up",
 		data: String,
 		dataType: "jsonp", 
 		success: function(data){
@@ -44,7 +44,7 @@ function getUpcoming(){ // Cotacts SickBeard and gets the upcoming episodes.
 				log.append("Something is wrong, we can't get the upcoming episodes.");
 			}
 		}
-	})
+	});
 }
 
 function presentHistory(data){ // Presents the history-data
@@ -52,7 +52,7 @@ function presentHistory(data){ // Presents the history-data
 	var episodes = data.data; 
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		var btn = '<span class="glyphicon glyphicon-play"></span>  '
+		var btn = '<span class="glyphicon glyphicon-play"></span>  ';
 		loc.append( btn + "<a onClick='checkOff()' >"+ ep.show_name + " - " + ep.season + " x " + ep.episode +"</a><br>"); 
 	}
 }
@@ -75,6 +75,30 @@ function checkOff(){
 }
 
 function findFilePath(episode){
-	var path = ""; 
-	return path; 
+	$.ajax({
+		type: "GET", 
+		url: host + "/api/" + apiKey + "?cmd=episode&tvdbid="+ getTVDBID(episode.show_name) +"&season="+episode.season +"&episode="+ episode.episode+ "&jsonp=path",
+		data: String,
+		dataType: "jsonp", 
+		success: function(data){
+			return data.data.location; 
+		}
+	});
+	return ""; 
+}
+
+function getTVDBID(showName){
+	$.ajax({
+		type: "GET", 
+		url: host + "/api/" + apiKey + "/?cmd=shows&sort=id&jsonp=tvdbid",
+		data: String,
+		dataType: "jsonp", 
+		success: function(data){
+			for (var i = 0; i < data.data.length; i++){
+				if (data.data[i].show_name == showName){
+					return data.data[i].tvdbid; 
+				}
+			}
+		}
+	});
 }

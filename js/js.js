@@ -13,19 +13,18 @@ function clearFields(){
 	$("#upcoming").html("");
 }
 
-function getHistory(){ // Cotacts SickBeard and gets the 25 latest downladed episodes.
+function getHistory(){ // Cotacts SickBeard and gets the latest downladed episodes.
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
-		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=25&jsonp=hist",
+		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=25",
 		data: String,
-		dataType: "jsonp", 
+		dataType: "jsonp",
+		error: function(){
+			log.append("Something is wrong, we can't get the downloaded episodes.");
+		},
 		success: function(data){
-			if (data.result == "success"){
-				presentHistory(data); 
-			} else{
-				log.append("Something is wrong, we can't get the downloaded episodes.");
-			}
+			presentHistory(data); 
 		}
 	})
 }
@@ -34,7 +33,7 @@ function getUpcoming(){ // Cotacts SickBeard and gets the upcoming episodes.
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
-		url: host + "/api/" + apiKey + "/?cmd=future&sort=date&jsonp=up",
+		url: host + "/api/" + apiKey + "/?cmd=future&sort=date",
 		data: String,
 		dataType: "jsonp", 
 		success: function(data){
@@ -48,12 +47,19 @@ function getUpcoming(){ // Cotacts SickBeard and gets the upcoming episodes.
 }
 
 function presentHistory(data){ // Presents the history-data
-	var loc = $("#history")
+	var loc = $("#history");
 	var episodes = data.data; 
+	var addedEpisodes = new Array(); // Holds the added episodes, so we can check if a download is just a new version.
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		var btn = '<span class="glyphicon glyphicon-play"></span>  ';
+		var showIt = isToBeShown(ep.tvdbid); 
+		if (!showIt || addedEpisodes.indexOf(ep.show_name+ep.season+ep.episode) != -1){
+			continue; 
+		}
+		var btn = "<a href='"+"'<span class='glyphicon glyphicon-play'></span>"; // Needs padding.
 		loc.append( btn + "<a onClick='checkOff()' >"+ ep.show_name + " - " + ep.season + " x " + ep.episode +"</a><br>"); 
+		loc.append(getFilePath(ep)); 
+		addedEpisodes.push(ep.show_name+ep.season+ep.episode);
 	}
 }
 
@@ -69,19 +75,21 @@ function presentUpcoming(data){ // Presents the upcoming-data
 	}
 }
 
-function checkOff(){ 
+function checkOff(){ // Check out an episode 
+	// @TODO: Also allow unchecking if already checked.
 	$(event.target).css('text-decoration', 'line-through');
-	// Some logic for remembering that this episode has been checked.
+	// @TODO: Implement some logic for remembering that this episode has been checked.
 }
 
-function findFilePath(episode){
+function getFilePath(episode){ 
+	var id = getTVDBID(episode.show_name); 
 	$.ajax({
 		type: "GET", 
-		url: host + "/api/" + apiKey + "?cmd=episode&tvdbid="+ getTVDBID(episode.show_name) +"&season="+episode.season +"&episode="+ episode.episode+ "&jsonp=path",
+		url: host + "/api/" + apiKey + "?cmd=episode&tvdbid="+ id+"&season="+episode.season.toString() +"&episode="+ episode.episode.toString()+ "&full_path=1",
 		data: String,
 		dataType: "jsonp", 
 		success: function(data){
-			return data.data.location; 
+			console.log(data.data["location"]); 
 		}
 	});
 	return ""; 
@@ -90,15 +98,41 @@ function findFilePath(episode){
 function getTVDBID(showName){
 	$.ajax({
 		type: "GET", 
-		url: host + "/api/" + apiKey + "/?cmd=shows&sort=id&jsonp=tvdbid",
-		data: String,
+		url: host + "/api/" + apiKey + "/?cmd=shows&sort=name",
 		dataType: "jsonp", 
+		async: false, 
 		success: function(data){
-			for (var i = 0; i < data.data.length; i++){
-				if (data.data[i].show_name == showName){
-					return data.data[i].tvdbid; 
+			var shows = data.data; 
+			for (show in shows){
+				if (shows[show].show_name == showName){
+					return shows.show.tvdbid; 
 				}
 			}
 		}
 	});
+}
+
+function isToBeShown(tvdbid){ 
+// Tries to find out if download is backlog-download, or new episode.
+	$.ajax({
+		type: "GET", 
+		url: host + "/api/" + apiKey + "?cmd=show&tvdbid=" + tvdbid.toString(),
+		data: String,
+		dataType: "jsonp", 
+		async: false,
+        cache: false,
+        timeout: 30000, 
+        error: function(){
+        	$("#log").append("Method isToBeShown failed for " + tvdbid.toString());
+        	return true; 
+        },
+		success: function(data){
+			console.log(data.data.status);
+			if (data.data.status == "Continuing"){ // If it's not a running show, this episode is backlog-download.
+				return true; 
+			}
+			return false; 
+		}
+	});
+	return true; 
 }

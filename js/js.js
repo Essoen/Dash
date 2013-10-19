@@ -21,7 +21,7 @@ function getHistory(){ // Cotacts SickBeard and gets the latest downladed episod
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
-		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=50",
+		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=25",
 		data: String,
 		dataType: "jsonp", 
 		error: function(){
@@ -54,13 +54,9 @@ function presentHistory(data){ // Presents the history-data
 	var loc = $("#history");
 	var episodes = data.data; 
 	var addedEpisodes = new Array(); // Holds the added episodes, so we can check if a download is just a new version.
-	var tvdb = new Array(); 
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		if (tvdb.indexOf(tvdbid) == -1 && isToBeShown(ep.tvdbid)){
-			tvdb.append(tvdbid); 
-		}
-		if (tvdb.indexOf(tvdbid) != -1|| addedEpisodes.indexOf(ep.show_name+ep.season+ep.episode) != -1) {
+		if ( addedEpisodes.indexOf(ep.show_name+ep.season+ep.episode) != -1) {
 			continue; 
 		}
 		var btn = "<a href='"+"'<span class='glyphicon glyphicon-play'></span>"; // Needs padding.

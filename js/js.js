@@ -1,4 +1,5 @@
-var host = "http://10.0.0.9:8081";
+var port = "8081";
+var host = "http://10.0.0.9:"+port;
 var apiKey = "46abdc48319c66c67962883b06ec7f74";
 
 function refresh(){
@@ -12,6 +13,10 @@ function clearFields(){
 	$("#history").html("");
 	$("#upcoming").html("");
 }
+ 
+
+var timerId = setInterval(refresh, 60000*15);    //60,000 milliseconds
+
 
 function changeSettings(){ //@TODO
 	return; 
@@ -21,7 +26,7 @@ function getHistory(){ // Cotacts SickBeard and gets the latest downladed episod
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
-		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=25",
+		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=50",
 		data: String,
 		dataType: "jsonp", 
 		error: function(){
@@ -40,12 +45,11 @@ function getUpcoming(){ // Cotacts SickBeard and gets the upcoming episodes.
 		url: host + "/api/" + apiKey + "/?cmd=future&sort=date",
 		data: String,
 		dataType: "jsonp", 
+		error: function(){
+			log.append("Something is wrong, we can't get the upcoming episodes.");
+		},
 		success: function(data){
-			if (data.result == "success"){
-				presentUpcoming(data); 
-			}else{
-				log.append("Something is wrong, we can't get the upcoming episodes.");
-			}
+			presentUpcoming(data); 
 		}
 	});
 }
@@ -139,7 +143,6 @@ function checkStatus(showData, episodeData){
 
 function addToView(ep){
 	var loc = $("#history");
-	var btn = "<a href='"+"'<span class='glyphicon glyphicon-play'></span>"; // Needs padding.
+	var btn = "<a href='"+getFilePath(ep)+"'<span class='glyphicon glyphicon-play'></span>"; // Needs padding.
 	loc.append( btn + "<a onClick='checkOff()' >"+ ep.show_name + " - " + ep.season + " x " + ep.episode +"</a><br>"); 
-	// loc.append(getFilePath(ep)); 
 }

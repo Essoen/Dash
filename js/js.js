@@ -13,15 +13,19 @@ function clearFields(){
 	$("#upcoming").html("");
 }
 
+function changeSettings(){ //@TODO
+	return; 
+}
+
 function getHistory(){ // Cotacts SickBeard and gets the latest downladed episodes.
 	var log = $("#log");
 	$.ajax({
 		type: "GET",
-		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=25",
+		url: host + "/api/" + apiKey + "/?cmd=history&type=downloaded&limit=50",
 		data: String,
-		dataType: "jsonp",
+		dataType: "jsonp", 
 		error: function(){
-			log.append("Something is wrong, we can't get the downloaded episodes.");
+			log.append("Something is wrong, we can't get the history of downloaded episodes.");
 		},
 		success: function(data){
 			presentHistory(data); 
@@ -50,10 +54,13 @@ function presentHistory(data){ // Presents the history-data
 	var loc = $("#history");
 	var episodes = data.data; 
 	var addedEpisodes = new Array(); // Holds the added episodes, so we can check if a download is just a new version.
+	var tvdb = new Array(); 
 	for (var i = 0; i < episodes.length; i++){
 		var ep = episodes[i];
-		var showIt = isToBeShown(ep.tvdbid); 
-		if (!showIt || addedEpisodes.indexOf(ep.show_name+ep.season+ep.episode) != -1){
+		if (tvdb.indexOf(tvdbid) == -1 && isToBeShown(ep.tvdbid)){
+			tvdb.append(tvdbid); 
+		}
+		if (tvdb.indexOf(tvdbid) != -1|| addedEpisodes.indexOf(ep.show_name+ep.season+ep.episode) != -1) {
 			continue; 
 		}
 		var btn = "<a href='"+"'<span class='glyphicon glyphicon-play'></span>"; // Needs padding.
@@ -113,7 +120,8 @@ function getTVDBID(showName){
 }
 
 function isToBeShown(tvdbid){ 
-// Tries to find out if download is backlog-download, or new episode.
+	// Tries to find out if download is backlog-download, or new episode.
+	show = true; 
 	$.ajax({
 		type: "GET", 
 		url: host + "/api/" + apiKey + "?cmd=show&tvdbid=" + tvdbid.toString(),
@@ -128,11 +136,10 @@ function isToBeShown(tvdbid){
         },
 		success: function(data){
 			console.log(data.data.status);
-			if (data.data.status == "Continuing"){ // If it's not a running show, this episode is backlog-download.
-				return true; 
+			if (data.data.status != "Ended"){ // If it's not a running show, this episode is backlog-download.
+				return true;  
 			}
 			return false; 
 		}
 	});
-	return true; 
 }

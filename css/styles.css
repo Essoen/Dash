@@ -6,8 +6,12 @@
 	bottom: -50px;
 }
 
-#aligncenter{
+.aligncenter{
 	text-align: center;
+}
+
+.alignright{
+	float: right;
 }
 
 

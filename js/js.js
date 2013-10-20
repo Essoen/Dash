@@ -2,10 +2,10 @@ var port = "8081";
 var host = "http://10.0.0.9:" + port;
 var apiKey = "46abdc48319c66c67962883b06ec7f74";
 
+setInterval(refresh, 60000*15);    //60,000 milliseconds * 15
+
 function refresh(){
-	clearFields(); 
-	getHistory();
-	getUpcoming(); 
+	checkForService();
 }
 
 function clearFields(){
@@ -13,13 +13,25 @@ function clearFields(){
 	$("#history").html("");
 	$("#upcoming").html("");
 }
- 
-
-setInterval(refresh, 60000*15);    //60,000 milliseconds * 15
-
 
 function changeSettings(){ //@TODO
 	return; 
+}
+
+function checkForService(){
+	$.ajax({
+		type: "GET",
+		url: host + "/api/" + apiKey + "/?cmd=sb.ping",
+		dataType: "jsonp",
+		error: function(){
+			$("#log").append("Could not access SickBeard. Have you entered correct settings, and checked that it's running on your server?");
+		},
+		success: function(data){
+			clearFields(); 
+			getHistory();
+			getUpcoming(); 
+		}
+	})
 }
 
 function getHistory(){ // Cotacts SickBeard and gets the latest downladed episodes.
@@ -91,7 +103,9 @@ function getTVDBID(showName){
 		type: "GET", 
 		url: host + "/api/" + apiKey + "/?cmd=shows&sort=name",
 		dataType: "jsonp", 
-		async: false, 
+		error: function(){
+			$("#log").append("Could not get TVDBID for the show " + showName);
+		},
 		success: function(data){
 			var shows = data.data; 
 			for (show in shows){
@@ -118,8 +132,7 @@ function presentHistory(data){ // Presents the history-data
 }
 
 function getStatus(episodeData){ 
-	// Tries to find out if download is backlog-download, or new episode.
-	show = true; 
+	// Gets the shows status
 	$.ajax({
 		type: "GET", 
 		url: host + "/api/" + apiKey + "?cmd=show&tvdbid=" + episodeData.tvdbid.toString(),
@@ -127,7 +140,6 @@ function getStatus(episodeData){
 		dataType: "jsonp", 
         error: function(){
         	$("#log").append("Method isToBeShown failed for " + tvdbid.toString());
-        	return true; 
         },
 		success: function(data){
 			checkStatus(data, episodeData);

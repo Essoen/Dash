@@ -9,6 +9,7 @@
 	<!-- Bootstrap -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  	<link href="css/bootstrap.min.css" rel="stylesheet">
+ 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
  	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,16 +49,16 @@
 		</div>
 	</div>
 	<div id="aligncenter log"></div>
-		<div class="row">
-			<div id="rows" class="span6">
-				<h2>Downloaded episodes</h2>
-				<div id="history"> </div>
-			</div>
-			<div id="rows" class="span6">
-				<h2>Upcoming episodes</h2>
-				<div id="upcoming"> </div>
-			</div>
+	<div class="row">
+		<div id="rows" class="col-md-6">
+			<h2>Downloaded episodes</h2>
+			<div id="history"> </div>
 		</div>
+		<div id="rows" class="col-md-6">
+			<h2>Upcoming episodes</h2>
+			<div id="upcoming"> </div>
+		</div>
+	</div>
 	</div> <!-- Ends container -->
 </body>
 <!-- Settings-modal -->
@@ -71,17 +72,21 @@
 		<div class="modal-body">
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon">Host</span> 
-				<input type="text" class="form-control"><br>
-
+				<input type="text" class="form-control">
+			</div>
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon">Port</span>
 				<input type="text" class="form-control"><br>
-
+			</div>
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon">API-key</span> 
 				<input type="text" class="form-control"><br>
-
+			</div>
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon">Limit for history</span> 
 				<input type="text" class="form-control"><br>
-
+			</div>
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon">Refresh-rate (minutes)</span> 
 				<input type="text" class="form-control"><br>
 			</div>

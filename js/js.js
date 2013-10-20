@@ -1,5 +1,5 @@
 var port = "8081";
-var host = "http://10.0.0.9:"+port;
+var host = "http://10.0.0.9:" + port;
 var apiKey = "46abdc48319c66c67962883b06ec7f74";
 
 function refresh(){
@@ -15,7 +15,7 @@ function clearFields(){
 }
  
 
-var timerId = setInterval(refresh, 60000*15);    //60,000 milliseconds
+setInterval(refresh, 60000*15);    //60,000 milliseconds * 15
 
 
 function changeSettings(){ //@TODO

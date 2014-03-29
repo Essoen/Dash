@@ -1,0 +1,55 @@
+<head>
+  <title>The Dash 2.0 BETA</title>
+  	<LINK href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+        {{> header}}
+		<div class="row-fluid">
+			{{> content}} <!--
+			<div id="footer" >
+				<p>Powered by <a href="http://meteor.com">Meteor</a>
+				and made by <a href="mailto:steinotto.svorstol@gmail.com">Stein-Otto Svorstøl</a></p>
+			</div> -->
+		</div>
+	</div>
+</body>
+
+<template name="content">
+	<div class="span6">
+		<h2>Downloaded episodes</h2>
+        {{{downloaded}}}
+	</div>
+	<div class="span6">
+		<h2>Upcoming episodes</h2>
+		{{{upcoming}}}
+	</div>
+</template>
+
+<template name="header">
+<div class="page-header">
+		<h1>The Dash <small>Lightweight dashboard for SickBeard</small></h1>
+		{{{downloaded}}}
+		<div>
+			<div class="aligncenter">
+				Check viewed episodes off by clicking them. Everything presented as "Show name - Season x Episode."
+			</div><!-- Use the play-button to the left of the episode to play it. (to be implemented.. sometime)-->
+			
+			<ul class="nav nav-pills">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						Services <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabindex="0" target="_blank" href="http://10.0.0.9:8081">SichBeard</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="1" target="_blank" href="http://10.0.0.9:5050">CouchPotato</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="2" target="_blank" href="http://10.0.0.9:8080">SABnzdb</a></li>
+					</ul>
+				</li>
+				<!-- Button trigger modal -->
+		  		<a data-toggle="modal" href="#settings-modal" class="alignright btn btn-default btn-lg">Settings</a>
+			</ul>
+		</div>
+	</div>
+</template>
